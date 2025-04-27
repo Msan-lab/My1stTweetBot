@@ -1,0 +1,32 @@
+name: Scheduled Job
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # 毎日UTC12時（例：日本時間21時）
+  workflow_dispatch:  # 手動でも実行できる
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install tweepy  # 必要なライブラリをここで入れる
+
+    - name: Run Python Script
+      env:
+        TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+        TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+        TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+      run: |
+        python My1stTweetBotMain.py  # あなたのPythonスクリプト名
