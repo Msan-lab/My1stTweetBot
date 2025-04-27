@@ -2,7 +2,7 @@ name: Scheduled Job
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # 毎日UTC12時（例：日本時間21時）
+    - cron: '0 0 * * 1'  # 毎日UTC12時（例：日本時間21時）
   workflow_dispatch:  # 手動でも実行できる
 
 jobs:
